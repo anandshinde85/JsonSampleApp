@@ -1,7 +1,8 @@
 package json.anand.com.model.internal.rest;
 
-import retrofit.Callback;
-import retrofit.http.GET;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.http.GET;
 import wordlist.example.com.commons.server.entities.WordsResponse;
 
 /**
@@ -10,12 +11,10 @@ import wordlist.example.com.commons.server.entities.WordsResponse;
  * @author Anand Shinde
  */
 public interface WordsListAPI {
-    /**
-     * Method for retrieving word list using retrofit interface
-     *
-     * @param callback - retrofit callback for passing on the response
-     */
-    @GET("/vocab/words.json")
-    void getWordsList(Callback<WordsResponse> callback);
+  /**
+   * Method for retrieving word list using retrofit interface
+   */
+  @GET("/vocab/words.json")
+  Call<WordsResponse> getWordsList();
 }
 

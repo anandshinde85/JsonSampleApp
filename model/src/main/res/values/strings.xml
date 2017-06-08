@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Model</string>
+    <string name="no_connection_error_description">Please retry after connecting to a network</string>
+    <string name="no_connection_error">No internet connection</string>
+    <string name="no_base_url_defined_error">Please initialize base URL before instantiating
+        .</string>
+    <string name="unexpected_error_message">Unexpected error occurred. Please try again later.</string>
 </resources>

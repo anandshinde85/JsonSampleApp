@@ -13,38 +13,38 @@ import wordlist.example.com.commons.server.entities.Word;
  * @author Anand Shinde
  */
 public class WordListPresenter implements BasePresenter, WordsListServiceImpl.CallbackHandler {
-    private final WordListView wordListView;
-    private final WordsListService wordsListService;
-    private List<Word> wordsResponse;
+  private final WordListView wordListView;
+  private final WordsListService wordsListService;
+  private List<Word> wordsResponse;
 
-    public WordListPresenter(WordListView wordListView) {
-        this.wordListView = wordListView;
-        wordsListService = new WordsListServiceImpl(this, 1);
+  public WordListPresenter(WordListView wordListView) {
+    this.wordListView = wordListView;
+    wordsListService = new WordsListServiceImpl();
+  }
+
+  @Override
+  public void start() {
+    wordListView.showLoading(true);
+
+    if (wordsResponse == null) {
+      wordsListService.getWordList(this);
     }
+  }
 
-    @Override
-    public void start() {
-        wordListView.showLoading(true);
+  @Override
+  public void stop() {
 
-        if (wordsResponse == null) {
-            wordsListService.getWordList();
-        }
-    }
+  }
 
-    @Override
-    public void stop() {
+  @Override
+  public void onSuccess(List<Word> response, String uniqueId) {
+    wordsResponse = response;
+    wordListView.showLoading(false);
+    wordListView.populateList(wordsResponse);
+  }
 
-    }
-
-    @Override
-    public void onSuccess(List<Word> response, int uniqueId) {
-        wordsResponse = response;
-        wordListView.showLoading(false);
-        wordListView.populateList(wordsResponse);
-    }
-
-    @Override
-    public void onFailure(int uniqueId) {
-        wordListView.showError();
-    }
+  @Override
+  public void onFailure(String uniqueId) {
+    wordListView.showError();
+  }
 }
